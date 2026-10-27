@@ -1,8 +1,12 @@
-from decorators import unique_elements_decorator
 
-@unique_elements_decorator
-def get_sample_list():
-    return [1, 2, 2, 3, 4, 4, 5, 1, 3, "apple", "banana", "apple"]
+from decorators import unique
 
-if __name__ == "__main__":
-    print("Результат:", get_sample_list())
+def get_numbers():
+    return [1, 2, 3, 2, 4, 1, 5, 3]
+
+@unique
+def show_numbers():
+    return get_numbers()
+
+print("Початковий список:", get_numbers())
+print("Список без повторів:", show_numbers())
