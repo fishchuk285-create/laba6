@@ -1,0 +1,63 @@
+p = {
+    1: ["Мишка", 500, 10],
+    2: ["Клавіатура", 1000, 5],
+    3: ["Навушники", 800, 7]
+}
+cart = []
+
+def catalog():
+    for i, x in p.items():
+        print(f"{i}. {x[0]} - {x[1]:.2f}грн ({x[2]} шт.)")
+
+def show_cart():
+    total = 0
+    for i, q in cart:
+        s = p[i][1] * q
+        print(f"{p[i][0]} x{q} = {s:.2f}грн")
+        total += s
+    print(f"Разом: {total:.2f}грн")
+
+while True:
+    print("\n1-Каталог  2-Кошик  3-Додати  4-Видалити  5-Купити  6-Адмін  0-Вихід")
+    c = input("Вибір: ")
+
+    if c == "1":
+        catalog()
+
+    elif c == "2":
+        show_cart()
+
+    elif c == "3":
+        catalog()
+        i = int(input("№ товару: "))
+        q = int(input("Кількість: "))
+        if i in p and q <= p[i][2]:
+            cart.append((i, q))
+            print("Додано!")
+
+    elif c == "4":
+        i = int(input("№ товару: "))
+        cart = [(x, q) for x, q in cart if x != i]
+        print("Видалено!")
+
+    elif c == "5":
+        if cart:
+            total = lambda: sum(p[i][1] * q for i, q in cart)
+
+            for i, q in cart:
+                p[i][2] -= q
+
+            print(f"Куплено на {total():.2f}грн")
+            cart.clear()
+        else:
+            print("Кошик порожній!")
+
+    elif c == "6":
+        if input("Логін: ") == "admin" and input("Пароль: ") == "1234":
+            for i, x in p.items():
+                print(f"{x[0]}: {x[2]} шт.")
+        else:
+            print("Невірні дані!")
+
+    elif c == "0":
+        break
